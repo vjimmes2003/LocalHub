@@ -71,7 +71,36 @@ with gr.Blocks(css=custom_css, theme = 'Taithrah/Minimal') as demo:
 - Imagen con mejoras (hires fix y/o upscale si está activado)  
 
 💡 Cuanto más grande sea la imagen, más tardará en generarse.
+
+---
+
+### 🧠 Claves para un buen prompt:
+
+- 🧍 Empieza con el sujeto principal (ej: `portrait of a young woman`, `photo of a city street`, `closeup of a rabbit`)
+- ✨ Añade atributos: edad, ropa, estilo, expresión, iluminación...
+- 🎥 Usa palabras que definan el estilo visual: `cinematic`, `analog photo`, `dof`, `macro shot`, `film grain`
+- 📸 Añade detalles técnicos si quieres realismo: `8k uhd`, `DSLR`, `200mm lens`, `f/1.4`, `rule of thirds`
+- 🔎 Sé específico con el entorno: `foggy forest`, `neon-lit street`, `sunset on the beach`, `night city background`
+
+---
+
+### 🧪 Prompts especiales que me pasó un amigo rumano
+
+**📷 Realistic Vision V6:**
+- `RAW DSLR photo of a 30 y.o man wearing a brown leather jacket, leaning on a wooden fence, golden hour light, shallow depth of field, background forest blurred`
+- `8k uhd portrait of a 60 y.o woman with silver hair and kind eyes, sitting at a cafe table, rain outside the window, warm tones, film grain, kodak portra 400`
+- `closeup macro photo of a butterfly on a mossy rock in a damp forest, soft lighting, f/2.0, sharp focus on wings, bokeh in background`
+- `RAW candid photo of a young man standing at a subway station at night, neon lights, reflections on wet floor, dark cinematic lighting`
+- `photograph of an abandoned fishing boat on a rocky shore at sunset, dramatic clouds, orange-blue color palette, high resolution`
+
+**🌀 Juggernaut XL v9:**
+- `portrait of a cyberpunk woman with LED tattoos, short pink hair, standing in front of a vending machine in Tokyo, rain reflections, Leica shot, soft bokeh`
+- `a majestic tiger made of stained glass walking through a medieval castle hallway, volumetric lighting, cinematic, ultra-detailed`
+- `a realistic photo of a humanoid robot bartender polishing a glass, neon bar interior, shallow depth of field, moody atmosphere, shot on Hasselblad`
+- `cat wearing detective clothes, magnifying glass in paw, searching clues in a vintage library, 8k hyperdetailed, dramatic shadows, soft light`
+- `hyperrealistic photo of an astronaut floating underwater surrounded by jellyfish, glowing bioluminescence, artstation concept style`
 """)
+
 
         gr.Markdown("### 🖼️ Ejemplos visuales — Realistic Vision V6 B1")
         for i, nombre in enumerate(ejemplos_realistic):

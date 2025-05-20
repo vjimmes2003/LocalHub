@@ -5,7 +5,7 @@ import json
 import gradio as gr
 import time
 import asyncio
-from chatbot.model import load_model, MODEL_PATHS
+from chatbot.model import load_model, MODEL_PATHS, unload_model
 from chatbot.model_downloader import ensure_models_downloaded
 
 
@@ -40,16 +40,27 @@ TEMP_CHAT_PATH = "chatbot/saved_chats/_temp.json"
 CHAT_DIR = "chatbot/saved_chats"
 
 
+
+
 def respond_stream(message, chat_history, model_choice):
+    import threading
+
+    timeout_timer = threading.Timer(120, lambda: unload_model_chatbot())
+
+    def unload_model_chatbot():
+        from chatbot.model import state
+        if "pipe" in state:
+            print("⏱️ Chatbot: modelo superó los 2 minutos. Descargando de VRAM...")
+            del state["pipe"]
+            del state["model_name"]
+            import torch, gc
+            torch.cuda.empty_cache()
+            gc.collect()
+
     pipe = load_model(model_choice)
     tokenizer = pipe.tokenizer
     model = pipe.model
 
-    #Añadimos el system message personalizado por modelo
-    # internal_name = MODEL_PATHS.get(model_choice,model_choice)
-    # system = DEFAULT_SYSTEM_PROMPT
-    # specific = PER_MODEL_PROMPT.get(internal_name, "")
-    # prompt = system + ("\n" + specific if specific else "") +  "\n\n"
     internal = MODEL_PATHS.get(model_choice, model_choice)
     prompt = DEFAULT_SYSTEM_PROMPT
     if internal in PER_MODEL_PROMPT:
@@ -112,7 +123,7 @@ def respond_stream(message, chat_history, model_choice):
         {"role": m["role"], "content": m["content"]}
         for m in chat_history
     ], chat_history
-
+    timeout_timer.cancel()
 
 def save_chat(_, __, name):
     if not os.path.exists(TEMP_CHAT_PATH):
@@ -218,6 +229,18 @@ Interactúa con modelos de lenguaje según tus necesidades. Guarda tus chats, c�
                     label="🧠 Modelo activo",
                     value="Llama-3.2"
                 )
+                unload_status = gr.Textbox(label="Estado del modelo", interactive=False)
+
+                unload_btn = gr.Button("🔌 Descargar modelo de VRAM")
+
+                def click_unload():
+                    success = unload_model()
+                    if success:
+                        return "✅ Modelo descargado de la VRAM"
+                    else:
+                        return "ℹ️ No hay modelo cargado"
+
+                unload_btn.click(click_unload, outputs=unload_status)
                 chatbot = gr.Chatbot(label="Chat", type="messages", show_copy_button=True,)
                 chat_state = gr.State([])
 

@@ -31,6 +31,12 @@ def init_model(mode_choice):
         return f"❌ Error al cargar modelo: {e}"
 
 def process(audio_path, mode_choice, language_choice):
+    
+    import threading
+
+    timeout_timer = threading.Timer(120, lambda: unload_model_audio())
+    timeout_timer.start()
+
     if not audio_path:
         return "⚠️ Por favor sube un archivo de audio.", None, None
     print(f"📥 Audio recibido: {audio_path}")
@@ -56,11 +62,23 @@ def process(audio_path, mode_choice, language_choice):
         with open(srt_file, "w", encoding="utf-8") as f:
             f.write(srt_output)
 
+        timeout_timer.cancel()
         print(f"✅ Transcripción finalizada: {txt_file}, {srt_file}")
         return full_text, txt_file, srt_file
     except Exception as e:
         print(f"❌ Error durante transcripción: {e}")
         return f"❌ Error: {e}", None, None
+
+def unload_model_audio():
+    from spch_to_text.model import STATE
+    if STATE["model"] is not None:
+        print("⏱️ Audio: modelo superó los 2 minutos. Descargando de VRAM...")
+        STATE["model"] = None
+        STATE["mode"] = None
+        import torch, gc
+        torch.cuda.empty_cache()
+        gc.collect()
+
 
 def reset_app():
     print("🔁 Reseteando aplicación...")
@@ -111,6 +129,15 @@ Obtendrás el texto transcrito y los subtítulos listos para usar (.srt).
                     label="🌍 Idioma"
                 )
                 status = gr.Markdown("⏳ Modelo no cargado")
+                unload_status = gr.Textbox(label="Estado del modelo", interactive=False)
+                unload_btn = gr.Button("🔌 Descargar modelo de VRAM")
+
+                def click_unload():
+                    from spch_to_text.model import unload_model
+                    success = unload_model()
+                    return "✅ Modelo descargado" if success else "ℹ️ No había modelo cargado"
+
+                unload_btn.click(click_unload, outputs=unload_status)
 
         example_selector.change(
             lambda p: p if os.path.exists(p) else None,

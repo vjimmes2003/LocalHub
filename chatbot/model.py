@@ -30,13 +30,15 @@ def get_gpu_total_memory():
 
 def unload_model():
     global _loaded_models, _current_model
-    if _current_model:
+    if _current_model and _current_model in _loaded_models:
         print(f"🔻 Descargando modelo anterior: {_current_model}")
         del _loaded_models[_current_model]
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
         _current_model = None
+        return True
+    return False
 
 def load_model(name):
     global _loaded_models, _current_model
@@ -48,7 +50,7 @@ def load_model(name):
     
     total_mem = get_gpu_total_memory()
     max_memory = {0: f"{int(total_mem * 0.9)}MiB"}
-    internal_name = MODEL_PATHS.get(name, name)  # Traducción del nombre visible al interno
+    internal_name = MODEL_PATHS.get(name, name)
     config = MODEL_CONFIGS[internal_name]
     repo_id = config["repo_id"]
     task = config["task"]
@@ -57,19 +59,18 @@ def load_model(name):
 
     print(f"📥 Cargando modelo '{internal_name}' desde {repo_id}...")
 
-    # Algunos modelos requieren remote_code=True (como Instella)
     trust_remote = "Instella" in internal_name or config.get("trust_remote_code", False)
         
-    tokenizer = AutoTokenizer.from_pretrained(repo_id,cache_dir=model_dir,trust_remote_code=trust_remote)
-    model = AutoModelForCausalLM.from_pretrained(repo_id,cache_dir=model_dir,trust_remote_code=trust_remote,
-        device_map="auto",            # reparte capas en GPU/CPU
-        torch_dtype=torch.float16,    # medio-precisión para reducir VRAM
-        max_memory = max_memory
+    tokenizer = AutoTokenizer.from_pretrained(repo_id, cache_dir=model_dir, trust_remote_code=trust_remote)
+    model = AutoModelForCausalLM.from_pretrained(repo_id, cache_dir=model_dir, trust_remote_code=trust_remote,
+        device_map="auto",
+        torch_dtype=torch.float16,
+        max_memory=max_memory
     )
-    pipe = pipeline(task=task,model=model,tokenizer=tokenizer,
-       device_map="auto",            # idem
-       torch_dtype=torch.float16,    # idem
-       **kwargs
+    pipe = pipeline(task=task, model=model, tokenizer=tokenizer,
+        device_map="auto",
+        torch_dtype=torch.float16,
+        **kwargs
     )
     
     _loaded_models[name] = pipe

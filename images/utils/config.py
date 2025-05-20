@@ -5,14 +5,16 @@ MODELS_DIR = BASE_DIR / "models"
 VAE_DIR = BASE_DIR / "vae"
 
 NEGATIVE_PROMPT = (
-    "nsfw, naked, nude, low quality, worst quality, jpeg artifacts, blurry, "
-    "text, watermark, cropped, out of frame, "
-    "bad anatomy, wrong anatomy, mutated, mutation, deformed, distorted, disfigured, "
-    "poorly drawn face, poorly drawn hands, malformed limbs, extra limbs, missing limbs, fused fingers, too many fingers, long neck, "
-    "duplicate, morbid, mutilated, ugly, disgusting, "
-    "3d, cgi, sketch, cartoon, drawing, anime:1.2, nipple "
-    "tits, breasts, penis, cock, half-naked, exhibitionism:0.8"
+    "nsfw, ns·fw, explicit, nudity, naked, nude, porn, hentai, ero, erotic, adult content, sex, sexual, sexualized, sensual, lewd, "
+    "suggestive, revealing outfit, cleavage, see-through, underwear, lingerie, seduction, orgasm:1.3, "
+    "nipple, areola, tits, breasts, busty, boobs, penis, dick, cock, vagina, pussy, ass, butt, anal, blowjob, cumshot, intercourse, bdsm, domination, submission:1.3, "
+    "half-naked, topless, shirtless, exposed chest, panty, panties, bra, garterbelt, thighhighs, sex toys, dildo, exhibitionism:1.2, "
+    "text, watermark, logo, signature, cropped, out of frame, jpeg artifacts, blurry, lowres, low quality, worst quality, "
+    "deformed, mutated, bad anatomy, wrong anatomy, malformed limbs, fused fingers, too many fingers, missing limbs, disfigured, distorted, mutation, "
+    "poorly drawn face, poorly drawn hands, disgusting, ugly, duplicate, morbid, mutilated, "
+    "sketch, cartoon, drawing, anime, 3d, cgi, render:1.2"
 )
+
 
 
 MODEL_CONFIGS = {
@@ -32,8 +34,8 @@ MODEL_CONFIGS = {
             (768, 512),     # horizontal compacta
             (896, 512)      # horizontal intermedia
         ],
-        "default_resolution": (768, 1024),
-        "steps": 30,
+        "default_resolution": (512, 512),
+        "steps": 25,
         "cfg_scale": 7.0,
         "sampler": "dpmpp_2m_karras"
     },
@@ -49,8 +51,8 @@ MODEL_CONFIGS = {
             (832, 1216)
         ],
         "default_resolution": (1024, 1024),
-        "steps": 25,
-        "cfg_scale": 2.0,
-        "sampler": "dpmpp_sde_karras"
+        "steps": 35,
+        "cfg_scale": 7.0,
+        "sampler": "dpmpp_2m_karras"
     },
 }

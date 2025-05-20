@@ -66,7 +66,9 @@ def load_model(requested_mode):
         device=device,
         compute_type=compute_type
     )
-
+    STATE["model"] = model
+    STATE["mode"] = mode
+    
     return model, mode
 
 def transcribe_audio(model, audio_path, language=None):
@@ -89,3 +91,16 @@ def transcribe_audio(model, audio_path, language=None):
         })
 
     return full_text.strip(), timestamps
+
+# Estado del modelo cargado
+STATE = {"model": None, "mode": None}
+
+def unload_model():
+    if STATE["model"] is not None:
+        print(f"🔻 Descargando modelo de la VRAM ({STATE['mode']})")
+        STATE["model"] = None
+        STATE["mode"] = None
+        torch.cuda.empty_cache()
+        return True
+    return False
+
