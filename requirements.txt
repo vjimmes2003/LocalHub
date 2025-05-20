@@ -1,0 +1,51 @@
+--index-url https://download.pytorch.org/whl/cu128
+--extra-index-url https://pypi.org/simple
+
+# CORE PyTorch stack (CUDA 12.8 compatible)
+torch
+torchvision
+torchaudio
+
+# Frameworks
+fastapi
+uvicorn
+gradio
+
+# IA / ML
+transformers
+diffusers
+accelerate
+sentencepiece
+xformers
+
+# Reemplazo de openai-whisper por una versión más rápida y eficiente
+faster-whisper
+ctranslate2[cuda]
+
+# Para preprocesado de audio (recomendado)
+ffmpeg-python
+pydub
+
+# Utilidades y extras
+huggingface-hub
+bitsandbytes
+pydub
+invisible_watermark
+numpy
+scipy
+pandas
+requests
+tqdm
+python-multipart
+filelock
+pillow
+opencv-python
+packaging
+
+# Upscaler
+realesrgan==0.3.0
+basicsr==1.4.2  # necesaria para RealESRGAN y compatible con el hotfix
+
+# Otros que sabes que usas
+scikit-image
+matplotlib

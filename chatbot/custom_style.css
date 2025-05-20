@@ -1,0 +1,107 @@
+*{
+    align-items: stretch !important;
+}
+html, body, .app, .main {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    max-height: none;
+    font-size: 1.15rem;
+    color: #fefefe;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#component-1 {
+    margin-bottom: 50px;
+    padding: 16px;
+}
+
+#component-1 h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5em;
+}
+
+#component-1 p, #component-1 li {
+    font-size: 1rem;
+    line-height: 1.6em;
+}
+
+.sidebar {
+    max-width: 220px !important;
+    padding-right: 5px;
+}
+#component-11 #component-13{
+    flex-grow: 10;
+}
+#chatbot {
+    min-height: 30vh !important;
+    max-height: 200vh !important;
+    height: 100% !important;
+    overflow-y: visible;
+    background:#18181b;
+}
+
+#chat-toggle-button {
+    position: fixed;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background-color: #f7f7f7;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s ease-in-out;
+    opacity: 0.95;
+}
+
+#chat-toggle-button:hover {
+    cursor: pointer;
+    transform: translateY(-50%) scale(1.1) rotate(6deg);
+    background-color: #ffffff;
+    opacity: 1;
+}
+
+.sidebar-open #chat-toggle-button {
+    left: 240px;
+    background-color: #ffecec;
+}
+
+/* Botón de enviar (mismo alto que el input) */
+#component-17 {
+    flex-grow: 1;
+    height: 95px;
+    align-self: stretch;
+    font-size: 1rem;
+    padding: 0 !important;
+}
+
+#component-19 {
+    flex-grow: 4;
+    margin-right: 0;
+    margin-bottom: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* Botón de guardar chat, ancho completo */
+#component-21 {
+    width: 100%;
+    height: 95px;
+    font-size: 0.75rem;
+}
+
+button{
+    align-items: center !important;
+}
+* button{
+    align-items: center !important;
+}

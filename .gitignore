@@ -1,0 +1,32 @@
+# Entorno virtual de Python
+.venv/
+
+# Archivos de sistema
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+*.bak
+.DS_Store
+
+# Modelos y archivos grandes
+*.safetensors
+*.bin
+*.ckpt
+*.pt
+*.pth
+
+# Audios de ejemplo y salidas
+spch_to_text/assets/
+spch_to_text/models/
+chatbot/models/
+images/models/
+images/outputs/
+
+# Otros formatos pesados
+*.zip
+*.gz
+*.tar
+*.7z
