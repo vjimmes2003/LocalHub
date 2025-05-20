@@ -38,35 +38,11 @@
 
 1. [📋Requisitos](#1-requisitos)  
 2. [🔧Instalación](#2-instalación)  
-   - 2.1) [Clonar el repositorio](#21-clonar-el-repositorio)  
-   - 2.2) [Crear el entorno virtual](#22-crear-el-entorno-virtual)  
-   - 2.3) [Activar el entorno virtual](#23-activar-el-entorno-virtual)  
-   - 2.4) [Actualizar pip e instalar dependencias](#24-actualizar-pip-e-instalar-dependencias)  
-   - 2.5) [Iniciar sesión en Hugging Face CLI](#25-iniciar-sesión-en-hugging-face-cli)  
-   - 2.6) [🧰Hotfix de basicsr](#26-hotfix-de-basicsr-hasta-que-se--arregle)
-   - 2.7) [❗Instalar `ffmpeg`](#27-instalar-ffmpeg)
 3. [🚀Despliegue WebApp](#3-despliegue-de-la-aplicación-web)  
 4. [🤖Chatbot Multi-Modelo Personalizable](#4-chatbot-multi-modelo-personalizable)  
-   - 4.1) [⚙️Características](#41-características)  
-     - 4.1.1) [📦Carga y caché local](#411-carga-y-caché-local)  
-     - 4.1.2) [⚖️Gestión de GPU/CPU](#412-gestión-de-gpucpu)  
-     - 4.1.3) [🧾Prompts inteligentes](#413-prompts-inteligentes)  
-     - 4.1.4) [📝Streaming de respuestas](#414-streaming-de-respuestas)  
-     - 4.1.5) [💬Gestión de conversaciones](#415-gestión-de-conversaciones)  
 5. [🖼️Generador de Imágenes](#5-generador-de-imágenes)  
-   - 5.1) [⚙️Características principales](#51-características-principales)  
-     - 5.1.1) [🎨Modelos soportados](#511-modelos-soportados)  
-     - 5.1.2) [🧠Flujo de generación](#512-flujo-de-generación)  
-     - 5.1.3) [🧪Mejoras automáticas](#513-mejoras-automáticas)  
-     - 5.1.4) [🧩Interfaz visual](#514-interfaz-visual)  
-     - 5.1.5) [🖼️Galerías automáticas](#515-galerías-automáticas)  
 6. [🎤Transcriptor de Audio (Whisper)](#6-transcriptor-de-audio-whisper)
-   - 6.1) [🚀Características destacadas](#61-características-destacadas)
-   - 6.2) [📁Audios de ejemplo](#62-audios-de-ejemplo)
-   - 6.3) [🧠Modelos utilizados](#63-modelos-utilizados)    
-7. [✨Extras](#7✨-extras)  
-   - 7.1) [Pruebas automatizadas del Chatbot](#71-pruebas-automatizadas-del-chatbot)  
-   - 7.2) [Ejemplos de imágenes para Generador de imágenes](#72-ejemplos-de-imágenes-para-generador-de-imágenes)  
+7. [✨Extras](#7✨-extras)   
 8. [📄Licencia](#8📄-licencia)
 
 
@@ -216,6 +192,14 @@ Interactúa con cuatro modelos de ~3 B parámetros. Cada uno está optimizado pa
 - Guarda, carga y elimina chats desde la barra lateral de Gradio
 - Los JSON usan el alias (ej. `Llama-3.2`) en lugar del repo ID
 
+#### 4.1.6🔌 Descarga manual del modelo desde la interfaz
+
+- Se ha añadido un botón **"🔌 Descargar modelo de VRAM"** directamente en la interfaz del Chatbot.
+- Permite liberar la GPU manualmente cuando terminas una conversación o si el modelo se queda pillado.
+- También se usa este botón para reiniciar el estado si se detectan errores de carga o saturación.
+
+> El botón se encuentra justo debajo del selector de modelo.
+
 ---
 
 ## 5🖼️ Generador de Imágenes
@@ -297,6 +281,18 @@ Cada generación añade los nuevos archivos ordenados por fecha reciente.
 
 ---
 
+### 5.1.6⏱️ Vigilancia automática y descarga de modelos
+
+Cada vez que se genera una imagen, LocalHub evalúa el **uso actual de memoria RAM y VRAM** desde consola.  
+Esto te permite ver si tu GPU está saturada y actuar en consecuencia (reiniciar, descargar modelos, etc.).
+
+Además, si una generación tarda más de 2 minutos, el modelo se descarga automáticamente para evitar bloqueos.  
+Este sistema actúa como mecanismo de seguridad para liberar la GPU sin intervención manual.
+
+> ⚠️ Este comportamiento solo es visible desde la **consola**, no desde la interfaz de usuario.
+
+---
+
 ## 6.🎤 Transcriptor de Audio con Whisper v3
 
 Esta app permite transcribir archivos `.mp3` o `.wav` a texto con marcas de tiempo. 
@@ -310,6 +306,9 @@ Usa modelos locales (`faster-whisper`) optimizados para ejecutarse en GPU o CPU.
 - Salida en formato `.txt` y `.srt`.
 - Muestra texto en tiempo real tras procesar el audio.
 - **Incluye audios de prueba** para testear directamente.
+- Además, se ha añadido un botón para **descargar el modelo cargado de la VRAM** manualmente.
+- Esto permite liberar memoria cuando terminas una transcripción larga o deseas cambiar de modelo.
+
 
 ### 6.2📁 Audios de ejemplo
 
@@ -355,7 +354,15 @@ python -m images.generar_ejemplos
   - `images/examples/<Modelo>_<número>_base.json`
   - `images/examples/<Modelo>_<número>_final.json`
 
+### 7.3 🧠 Autogestión de Recursos
 
+- Todas las miniapps (`chatbot`, `images`, `spch_to_text`) cuentan ahora con un **sistema de timeout**.
+- Si una operación tarda **más de 2 minutos**, se asume que está colgada y el modelo se descarga de la VRAM automáticamente.
+- Este sistema evita bloqueos persistentes y mejora la estabilidad general del sistema.
+- También se imprime en consola el uso de recursos antes de cada generación de imagen:
+- Además del sistema automático de timeout, **se han añadido botones manuales en Chatbot y Spch_to_Text** para permitir al usuario descargar el modelo activamente desde la interfaz de Gradio.
+
+> Si ves valores muy altos, es recomendable **cerrar otras aplicaciones o descargar modelos que no estés usando**.
 
 ---
 
