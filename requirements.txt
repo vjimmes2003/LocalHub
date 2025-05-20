@@ -41,6 +41,7 @@ filelock
 pillow
 opencv-python
 packaging
+pynvml
 
 # Upscaler
 realesrgan==0.3.0
