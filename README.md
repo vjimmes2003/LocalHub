@@ -44,6 +44,7 @@
    - 2.4) [Actualizar pip e instalar dependencias](#24-actualizar-pip-e-instalar-dependencias)  
    - 2.5) [Iniciar sesión en Hugging Face CLI](#25-iniciar-sesión-en-hugging-face-cli)  
    - 2.6) [🧰Hotfix de basicsr](#26-hotfix-de-basicsr-hasta-que-se--arregle)
+   - 2.7) [❗Instalar `ffmpeg`](#27-instalar-ffmpeg)
 3. [🚀Despliegue WebApp](#3-despliegue-de-la-aplicación-web)  
 4. [🤖Chatbot Multi-Modelo Personalizable](#4-chatbot-multi-modelo-personalizable)  
    - 4.1) [⚙️Características](#41-características)  
@@ -143,7 +144,7 @@ Para evitar errores, una vez has terminado todo ejecuta este script:
 python hotfix_basicsr.py
 ```
 
-### 2.7) Instalar `ffmpeg` (requerido para audio)
+### 2.7) ❗Instalar `ffmpeg` (requerido para audio)
 
 Whisper necesita `ffmpeg` para procesar correctamente los archivos `.mp3` y `.wav`.
 
@@ -152,7 +153,7 @@ Usa Chocolatey (recomendado):
 
 ```bash
 choco install ffmpeg
-
+```
 ---
 
 ## 3.🚀 Despliegue de la aplicación web
