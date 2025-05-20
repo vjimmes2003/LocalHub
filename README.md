@@ -41,7 +41,7 @@
 3. [🚀Despliegue WebApp](#3-despliegue-de-la-aplicación-web)  
 4. [🤖Chatbot Multi-Modelo Personalizable](#4-chatbot-multi-modelo-personalizable)  
 5. [🖼️Generador de Imágenes](#5%EF%B8%8F-generador-de-imágenes)  
-6. [🎤Transcriptor de Audio (Whisper)](#6-transcriptor-de-audio-whisper-v3)
+6. [🎤Transcriptor de Audio (Whisper)](#6-transcriptor-de-audio-con-whisper-v3)
 7. [✨Extras](#7✨-extras)   
 8. [📄Licencia](#8📄-licencia)
 
