@@ -74,7 +74,7 @@
 ## 1. 📋 Requisitos
 
 - **Python** ≥ 3.10  
-- **CUDA** 12.x + driver compatible _(opcional para GPU)_  
+- **CUDA** 12.x + driver compatible _(opcional para GPU)_
 - **SO**: Windows / Linux / macOS  
 - **RAM**: ≥ 8 GB  
 - **VRAM**:  
@@ -142,6 +142,16 @@ Para evitar errores, una vez has terminado todo ejecuta este script:
 ```bash
 python hotfix_basicsr.py
 ```
+
+### 2.7) Instalar `ffmpeg` (requerido para audio)
+
+Whisper necesita `ffmpeg` para procesar correctamente los archivos `.mp3` y `.wav`.
+
+#### Windows:
+Usa Chocolatey (recomendado):
+
+```bash
+choco install ffmpeg
 
 ---
 
