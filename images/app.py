@@ -105,7 +105,7 @@ with gr.Blocks(css=custom_css, theme = 'Taithrah/Minimal') as demo:
         gr.Markdown("### 🖼️ Ejemplos visuales — Realistic Vision V6 B1")
         for i, nombre in enumerate(ejemplos_realistic):
             with gr.Row():
-                img_display = gr.Image(value=f"images/examples/{nombre}_base.png", interactive=False, show_label=False, width=300)
+                img_display = gr.Image(value=f"images/examples/{nombre}_base.png", interactive=False, show_label=False, width=400, height=600)
                 with gr.Column():
                     gr.Markdown(f"📝 **Prompt:** `{PROMPTS_REALISTIC[i]}`")
                     btn1 = gr.Button("👁️ Ver ANTES")
@@ -116,7 +116,7 @@ with gr.Blocks(css=custom_css, theme = 'Taithrah/Minimal') as demo:
         gr.Markdown("### 🖼️ Ejemplos visuales — Juggernaut XL v9")
         for i, nombre in enumerate(ejemplos_juggernaut):
             with gr.Row():
-                img_display = gr.Image(value=f"images/examples/{nombre}_base.png", interactive=False, show_label=False, width=300)
+                img_display = gr.Image(value=f"images/examples/{nombre}_base.png", interactive=False, show_label=False,  width=500, height=500)
                 with gr.Column():
                     gr.Markdown(f"📝 **Prompt:** `{PROMPTS_JUGGERNAUT[i]}`")
                     btn1 = gr.Button("👁️ Ver ANTES")
