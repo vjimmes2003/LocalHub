@@ -90,7 +90,7 @@
 ### 2.1) Clonar el repositorio
 
 ```bash
-git clone <TU_REPO_URL> LocalHub
+git clone https://github.com/vjimmes2003/LocalHub.git
 cd LocalHub
 ```
 
